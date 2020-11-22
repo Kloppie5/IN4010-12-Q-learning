@@ -1,9 +1,12 @@
-\documentclass{article}
+\documentclass{report}
 \usepackage{listings}
+\usepackage{amsmath}
 \usepackage{graphicx}
+\usepackage{xcolor}
 \usepackage{enumitem}
 
 \newcommand{\divider}{\rule{\linewidth}{0.5mm}}
+\newcommand{\q}[1]{\color{gray}\textit{#1}\color{black}}
 
 \begin{document}
 	\begin{titlepage}
@@ -31,6 +34,88 @@
 		\end{center}
 	\end{titlepage}
 
+	\section*{Q-Learning}
+		
+		\subsection*{Coding Exercise 1.}
+		\q{Implement Q-learning with $\epsilon$-greedy action selection, complete the class given in q\_learning\_skeleton.py.}
+		% 
+		
+		\subsection*{Question 1.}
+		\q{Which environment, "walkInThePark" or "theAlley", is more difficult to learn in? Why?}
+		% 
+		
+		\subsection*{Question 2.}
+		\q{For the "walkInThePark" map, run some experiments for 1000 episodes with the following settings: $\epsilon = 0.05$, $\gamma = 0.9$, $\alpha = 0.1$. Does the agent learn an optimal policy? Why (not)? Report the (greedy) policy that the agent learned.}
+		% 
+		
+		\subsection*{Question 3.}
+		\q{Calculate (or compute) $Q^*$, the optimal Q-values, for the "theAlley" map with $\gamma = 0.9$, $BROKEN\_LEG\_PENALTY = -10$.}
+		% 
+		
+		\subsection*{Question 4.}
+		\q{Run some experiments for 1000 episodes with the following settings: $\epsilon = 0.05$, $\gamma = 0.9$, $\alpha = 0.1$, $BROKEN\_LEG\_PENALTY = -10$. Does the agent learn an optimal policy? Why (not)?}
+		% 
+		
+		\subsection*{Question 5.}
+		\q{Now calculate (or compute) $Q^*$, the optimal Q-values, for the "theAlley" map with $\gamma = 0.9$, $BROKEN\_LEG\_PENALTY = -5$.}
+		% 
+		
+		\subsection*{Question 6.}
+		\q{Run some experiments for 1000 episodes with the following settings: $\epsilon = 0.05$, $\gamma = 0.9$, $\alpha = 0.1$, $BROKEN\_LEG\_PENALTY = -5$. Does the agent always learn an optimal policy? Why (not)?}
+		% 
+		
+		\subsection*{Coding Exercise 2.}
+		\q{Try to change the exploration strategy of the agent in a way that allows it to find the optimal solution more often (and quicker).}
+		% 
+		
+		\subsection*{Question 7.}
+		\q{Describe your new exploration strategy.  Does it help the agent in learn the optimal policy more often/quicker?}
+		% 
+		
+	\section*{Deep Q-Learning}
 	
+		\subsection*{Todo 1.}
+		\q{Familiarize yourself with the code in deep\_q\_learning\_skeleton.py.}
+		% 
+		
+		\subsection*{Question 8.}
+		\q{Run deep\_q\_learning\_main.py a couple of times. What behavior from the agent do you observe? Does it learn to land safely between the flags?}
+		% 
+		
+		\subsection*{Coding Exercise 3.}
+		\q{Complete the class ReplayMemory in deep\_q\_learning\_skeleton.py. Change QLearner so that it uses the experience replay, that is:
+			\begin{itemize}
+				\item[1.] store\_experience should be called in the function process\_experience
+				\item[2.] In process\_experience sample a batch of "self.batch\_size" from the replay memory and update the network using this experience.
+			\end{itemize}
+		}
+		% 
+		
+		\subsection*{Question 9.}
+		\q{Again run deep\_q\_learning\_main.py a couple of times. What behavior from the agent do you observe? Does it learn to land safely between the flags? Did the agent improve compared to Question 8?}
+		% 
+		
+		\subsection*{Coding Exercise 4.}
+		\q{Now we will use an additional target network, $Q(s, a;\theta^-)$. Initially our Q-network and the target network will have the same parameters. We will use the target network to provide the estimated future values. That is, we change our target from
+			\begin{equation*}
+				r + \gamma max_{a'} Q(s', a', \theta) - Q(s, a, \theta)
+			\end{equation*}
+		to
+			\begin{equation*}
+				r + \gamma max_{a'} Q(s', a', \theta^-) - Q(s, a, \theta)
+			\end{equation*}
+		and at the end of every episode we set $\theta^- = \theta$.
+			\begin{itemize}
+				\item[1.] In deep\_q\_learning\_main.py add a target network to the initialization of the QLearner.
+				\item[2.] At the end of every episode set $\theta^- = \theta$,\\
+				self.target\_network.load\_state\_dict(self.Q.state\_dict())
+				\item[3.] Change single\_Q\_update (and batch\_Q\_update) to use the Q-value estimation for the next state from the target network. 
+			\end{itemize}
+		}
+		% 
+		
+		\subsection*{Question 10.}
+		\q{Again run deep\_q\_learning\_main.py a couple of times. What behavior from the agent do you observe? Does it learn to land safely between the flags? Did the agent improve compared to Question 9?}
+		% 
 	
 \end{document}
